@@ -1,0 +1,109 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{wrapfig}    % for wrapping figures
+\usepackage[swedish]{babel} % Gör vårt projekt till svenska
+\usepackage{times} % Använder Times-teckensnitt istället för LaTeX standardteckensnitt
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry} % Marginalen något mindre
+
+\usepackage{mathtools, hyperref, url}
+\usepackage{amsmath, amssymb, svg}
+\usepackage{listings}% Code blocks
+\usepackage{minted}
+\usepackage{siunitx}                % Fysikaliska enheter och siffror
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{icomma}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\sisetup{locale = DE, tight-spacing=true, group-digits=true}   % För decimal komma
+\titleformat*{\section}{\large\bfseries}
+
+%En kort beskrivning av hur man kör koden 
+%    (speciellt viktigt om koden består av flera filer)
+%En kort beskrivning av vad koden gör och vilka antaganden som gjorts
+%Svar på de frågor som ställts i uppgiftstexten.
+
+\title{Beräkningsuppgift 2: Rankinecykel}
+\author{
+    Alexander Andersson\\
+    Teknisk termodynamik 1FA527 63025\\
+    Uppsala Universitet
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\vspace{-25pt}
+
+
+\section{Introduktion}
+\vspace{-5pt}
+Denna rapport beskriver en lösning till beräkningsuppgift 2. Koden kan köras
+genom att antingen anropa Jupyter notebook på filen del1.ipynb och del2.ipynb eller
+genom att köra del1.py och del2.py båda metoder ska ge samma resultatat. Om
+nödvändigt kan moduler i requirements.txt behöva installeras.
+Uppgift 1 handlar om att beräkna den den termiska verkningsgraden i en vanlig Rankinecykel
+utifrån några begränsningar. Uppgift 2 handlar om att hitta den bästa verkningsgraden i en Rankinecykel
+med matarvattenförvärmning enligt annars samma villkor.
+\section{Antaganden}
+\vspace{-5pt}
+De centrala antaganden som gjorts är att processerna anses ideala, alltså är turbinen och pumparna
+isentropa, samt kondensatorn och ångpannan isobara. Dessutom antas att inga yttre förluster sker
+utan all energi tillförs i pumparna och ångpannan vilket sedan tas ut i kondensatorn och turbinen.
+
+\section{Beräkningar}
+\vspace{-5pt}
+I del 1 kunde tillstånd 3 bestämmas helt från initialvärden och det svåra blev
+att beräkna trycket i tillstånd 4. Detta kunde göras genom att hitta roten till ekvationen:
+\begin{equation}
+    s_f + 0,85(s_g-s_f)- s_3 = 0
+\end{equation}
+Entropierna $s_f$ och $s_g$ beräknades utifrån olika tryck med 0 respektive
+100\% ångkvalité, $s_3$ kunde beräknas redan innan. Ur detta kunde ett värde på trycket $P$ hittas.
+Därefter kunde resterande storheter beräknas som vanligt i Rankinecykeln.
+Det visade sig att den termiska verkningsgraden blev ca 39,8\% vid ett
+kondensatortryck på ca 28 kPa.
+
+Del 2 krävde att en liknande ekvation som del 1 löstes med skillnaden att nu erhölls istället
+ett system av olika fraktioner $y$ från turbinen som vardera gav olika tryck. Genom att lösa
+systemet och sedan hitta det maximala värdet erhölls att den
+termiska verkningsgraden i del 2 uppgick maximalt till ca 42,7\%
+vid en fraktion $y$ på ca 20,8\%. Trycket på den avtappade ångan uppgick till ca
+1,4 MPa.
+
+
+%\bibliographystyle{IEEEtran}
+%\bibliography{references}
+
+
+\end{document}
